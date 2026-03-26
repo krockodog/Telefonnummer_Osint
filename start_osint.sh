@@ -103,7 +103,8 @@ fi
 
 if grep -q '^SECRET_KEY=change-me$' .env; then
   SECRET_KEY="$(python -c 'import secrets; print(secrets.token_urlsafe(48))')"
-  sed -i "s|^SECRET_KEY=change-me$|SECRET_KEY=${SECRET_KEY}|" .env
+  tmp_env_file="$(mktemp .env.tmp.XXXXXX)"
+  sed "s|^SECRET_KEY=change-me$|SECRET_KEY=${SECRET_KEY}|" .env > "${tmp_env_file}" && mv "${tmp_env_file}" .env
   echo -e "${GREEN}✓ SECRET_KEY wurde sicher generiert${NC}"
 fi
 
