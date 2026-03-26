@@ -15,4 +15,4 @@ if [[ ! -f "${ROOT_SCRIPT}" ]]; then
   exit 1
 fi
 
-exec "${ROOT_SCRIPT}"
+exec "${ROOT_SCRIPT}" "$@"

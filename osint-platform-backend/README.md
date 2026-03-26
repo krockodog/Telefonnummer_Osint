@@ -41,29 +41,19 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-3. Create `.env` manually (minimal example):
+3. Create `.env` from template:
 ```bash
-cat > .env <<'ENV'
-FLASK_ENV=production
-DEBUG=False
-SECRET_KEY=change-me
-HOST=0.0.0.0
-PORT=15000
-RATE_LIMIT=1000 per hour
-DATABASE_URL=sqlite:///osint.db
-CACHE_TYPE=simple
-CACHE_TIMEOUT=3600
-DATA_RETENTION_DAYS=7
-LOG_LEVEL=INFO
-ENV
+cp .env.example .env
 ```
 
-4. Run the application:
+4. Set a secure `SECRET_KEY` in `.env` (replace `change-me`).
+
+5. Run the application:
 ```bash
 python app.py
 ```
 
-The API will be available at `http://localhost:15000`
+The API will be available at `http://localhost:5000`
 
 ## API Endpoints
 
@@ -268,6 +258,8 @@ osint-platform-backend/
 ├── app.py                 # Main Flask application
 ├── config.py             # Configuration management
 ├── requirements.txt      # Python dependencies
+├── .env.example         # Example environment configuration
+├── .env.example         # Example environment configuration
 ├── .gitignore           # Git ignore rules
 ├── README.md            # This file
 └── src/                 # Source modules

@@ -44,15 +44,17 @@ chmod +x start_osint.sh
 
 ```text
 ╔══════════════════════════════════════════════════════════════╗
-║  Installer erledigt automatisch:                            ║
-║  • Python venv + pip install                                ║
-║  • npm install + Frontend Build                             ║
-║  • sichere .env-Erstellung mit zufälligem SECRET_KEY        ║
-║  • Start + Health-Check auf Port 15000                      ║
+║  The installer automatically:                               ║
+║  • Creates Python venv + runs pip install                   ║
+║  • Runs npm install + builds the frontend                   ║
+║  • Generates .env files from .env.example templates         ║
+║  • Starts the backend + health-check on port 15000          ║
 ╚══════════════════════════════════════════════════════════════╝
 ```
 
-Öffne danach: `http://localhost:15000`
+Open in your browser: `http://localhost:15000`
+
+The installer creates: `osint-platform-backend/.env` and `app/.env.local`.
 
 ### Manual Setup
 
@@ -71,6 +73,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
+**Important:** After copying `.env.example` to `.env`, open the new `.env` file and change `SECRET_KEY=change-me` to a strong, unique value (for example, a long random string). The backend relies on this key for security-sensitive operations.
 #### Frontend Setup (development)
 
 ```bash
@@ -126,7 +129,7 @@ Frontend dev server: `http://localhost:5173`
 ### Example Request
 
 ```bash
-curl -X POST http://localhost:5000/api/investigate \
+curl -X POST http://localhost:15000/api/investigate \
   -H "Content-Type: application/json" \
   -d '{
     "query": "+49 170 1234567",
