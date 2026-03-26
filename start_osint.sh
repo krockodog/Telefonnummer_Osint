@@ -11,7 +11,15 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKEND_DIR="${SCRIPT_DIR}/osint-platform-backend"
 FRONTEND_DIR="${SCRIPT_DIR}/app"
 VENV_DIR="${BACKEND_DIR}/venv"
-BACKEND_PORT="15000"
+BACKEND_PORT_DEFAULT="15000"
+BACKEND_PORT="${BACKEND_PORT_DEFAULT}"
+if [[ -f "${BACKEND_DIR}/.env" ]]; then
+  # Lese BACKEND_PORT aus der Backend-.env, falls gesetzt
+  BACKEND_PORT_FROM_ENV="$(grep -E '^BACKEND_PORT=' "${BACKEND_DIR}/.env" | tail -n1 | cut -d'=' -f2- | tr -d '\"' || true)"
+  if [[ -n "${BACKEND_PORT_FROM_ENV}" ]]; then
+    BACKEND_PORT="${BACKEND_PORT_FROM_ENV}"
+  fi
+fi
 BACKEND_PID=""
 
 banner() {
