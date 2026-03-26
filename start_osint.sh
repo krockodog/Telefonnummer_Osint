@@ -110,7 +110,11 @@ fi
 
 echo -e "${BLUE}[4/8] Installiere Frontend-Dependencies${NC}"
 cd "${FRONTEND_DIR}"
-npm install
+if [[ -f package-lock.json ]]; then
+  npm ci
+else
+  npm install
+fi
 
 echo -e "${BLUE}[5/8] Erzeuge Frontend-.env.local${NC}"
 if [[ ! -f .env.example ]]; then
