@@ -41,18 +41,19 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-3. Configure environment variables:
+3. Create `.env` from template:
 ```bash
 cp .env.example .env
-# Edit .env with your configuration
 ```
 
-4. Run the application:
+4. Set a secure `SECRET_KEY` in `.env` (replace `change-me`).
+
+5. Run the application:
 ```bash
 python app.py
 ```
 
-The API will be available at `http://localhost:5000`
+The API will be available at `http://localhost:15000`
 
 ## API Endpoints
 
@@ -257,7 +258,6 @@ osint-platform-backend/
 ├── app.py                 # Main Flask application
 ├── config.py             # Configuration management
 ├── requirements.txt      # Python dependencies
-├── .env.example         # Example environment variables
 ├── .gitignore           # Git ignore rules
 ├── README.md            # This file
 └── src/                 # Source modules
