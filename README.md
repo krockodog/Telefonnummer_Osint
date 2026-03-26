@@ -73,6 +73,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
+**Important:** After copying `.env.example` to `.env`, open the new `.env` file and change `SECRET_KEY=change-me` to a strong, unique value (for example, a long random string). The backend relies on this key for security-sensitive operations.
 #### Frontend Setup (development)
 
 ```bash
