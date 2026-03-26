@@ -69,12 +69,6 @@ The installer creates: `osint-platform-backend/.env` and `app/.env.local`.
 cd osint-platform-backend
 python3 -m venv venv
 source venv/bin/activate
-cp .env.example .env
-```
-
-> **Important:** After copying `.env.example` to `.env`, open the new `.env` file and change `SECRET_KEY=change-me` to a strong, unique value. The backend relies on this key for security-sensitive operations.
-
-```bash
 pip install -r requirements.txt
 python app.py
 ```
@@ -195,7 +189,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY . .
-EXPOSE 5000
+EXPOSE 15000
 CMD ["python", "app.py"]
 ```
 
