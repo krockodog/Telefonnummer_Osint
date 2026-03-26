@@ -158,7 +158,25 @@ if [[ ! -f "${BACKEND_DIR}/.env" ]] || [[ ! -f "${FRONTEND_DIR}/.env.local" ]]; 
   exit 1
 fi
 
-IP_ADDRESS="$(hostname -I | awk '{print $1}')"
+# Determine local IP address in a cross-platform way
+if command -v uname >/dev/null 2>&1; then
+  case "$(uname)" in
+    Darwin)
+      # macOS: try common interfaces, fall back to localhost
+      IP_ADDRESS="$(ipconfig getifaddr en0 2>/dev/null || ipconfig getifaddr en1 2>/dev/null || printf '127.0.0.1')"
+      ;;
+    *)
+      # Linux/other: try hostname -I, fall back to localhost if it fails or is empty
+      if command -v hostname >/dev/null 2>&1; then
+        IP_ADDRESS="$(hostname -I 2>/dev/null | awk '{print $1}')"
+      fi
+      : "${IP_ADDRESS:=127.0.0.1}"
+      ;;
+  esac
+else
+  # Fallback if uname is unavailable
+  IP_ADDRESS="127.0.0.1"
+fi
 
 echo -e "${GREEN}"
 cat <<'SUCCESS'
