@@ -129,6 +129,16 @@ npm run build
 
 mkdir -p "${BACKEND_DIR}/static"
 rm -rf "${BACKEND_DIR}/static"/*
+
+if [[ ! -d dist ]]; then
+  echo -e "${RED}ERROR:${NC} Frontend-Build-Verzeichnis 'dist/' wurde nicht gefunden. Bitte prüfen, ob 'npm run build' erfolgreich war."
+  exit 1
+fi
+
+if ! compgen -G "dist/*" > /dev/null; then
+  echo -e "${RED}ERROR:${NC} Frontend-Build-Verzeichnis 'dist/' ist leer. Bitte prüfen, ob 'npm run build' erfolgreich war."
+  exit 1
+fi
 cp -r dist/* "${BACKEND_DIR}/static/"
 
 echo -e "${BLUE}[7/8] Starte Backend${NC}"
