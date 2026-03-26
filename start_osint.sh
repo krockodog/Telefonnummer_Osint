@@ -144,7 +144,14 @@ rm -rf "${BACKEND_DIR}/static"/*
 if [[ ! -d dist ]]; then
   echo -e "${RED}ERROR:${NC} Frontend-Build-Verzeichnis 'dist/' wurde nicht gefunden. Bitte prüfen, ob 'npm run build' erfolgreich war."
   exit 1
-fi
+  PIDS="$(lsof -ti:"${BACKEND_PORT}" 2>/dev/null || true)"
+  if [[ -n "${PIDS}" ]]; then
+    # Versuche zuerst einen sauberen Shutdown mit SIGTERM
+    kill ${PIDS} 2>/dev/null || true
+    sleep 2
+    # Erzwinge ggf. das Beenden verbleibender Prozesse mit SIGKILL
+    kill -9 ${PIDS} 2>/dev/null || true
+  fi
 
 if ! compgen -G "dist/*" > /dev/null; then
   echo -e "${RED}ERROR:${NC} Frontend-Build-Verzeichnis 'dist/' ist leer. Bitte prüfen, ob 'npm run build' erfolgreich war."
