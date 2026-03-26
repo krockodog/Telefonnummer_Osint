@@ -189,11 +189,11 @@ else
 fi
 
 echo -e "${GREEN}"
-cat <<'SUCCESS'
+cat <<SUCCESS
 ┌──────────────────────────────────────────────────────────────┐
 │  ✅ INSTALLATION FERTIG                                      │
-│  🌐 Öffne: http://localhost:15000                           │
-│  🔍 API:   http://localhost:15000/api/health                │
+│  🌐 Öffne: http://localhost:${BACKEND_PORT}                  │
+│  🔍 API:   http://localhost:${BACKEND_PORT}/api/health       │
 │  🛑 Stop:  Ctrl + C                                          │
 └──────────────────────────────────────────────────────────────┘
 SUCCESS
