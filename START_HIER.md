@@ -12,7 +12,7 @@
 
 - Beide Vorlagen sind vorhanden: `osint-platform-backend/.env.example` und `app/.env.example`.
 - Installer erstellt automatisch **2 aktive Env-Dateien**: `osint-platform-backend/.env` und `app/.env.local`.
-- Frontend wird gebaut und in `osint-platform-backend/static/` deployt.
+- Frontend wird gebaut und in `osint-platform-backend/static/` bereitgestellt.
 - Health-Check prüft zuverlässig, ob der Server wirklich läuft.
 
 ## Manueller Start (Fallback)
