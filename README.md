@@ -35,50 +35,51 @@ The OSINT Phone Intelligence Platform enables users to investigate phone numbers
 
 ## Quick Start
 
-### Prerequisites
+### One-Command Installer (recommended)
+
+```bash
+chmod +x start_osint.sh
+./start_osint.sh
+```
+
+```text
+╔══════════════════════════════════════════════════════════════╗
+║  Installer erledigt automatisch:                            ║
+║  • Python venv + pip install                                ║
+║  • npm install + Frontend Build                             ║
+║  • sichere .env-Erstellung mit zufälligem SECRET_KEY        ║
+║  • Start + Health-Check auf Port 15000                      ║
+╚══════════════════════════════════════════════════════════════╝
+```
+
+Öffne danach: `http://localhost:15000`
+
+### Manual Setup
+
+#### Prerequisites
 - Python 3.9+
 - Node.js 18+
-- npm or yarn
+- npm
 
-### Backend Setup
+#### Backend Setup
 
 ```bash
 cd osint-platform-backend
-
-# Create virtual environment
 python3 -m venv venv
 source venv/bin/activate
-
-# Install dependencies
 pip install -r requirements.txt
-
-# Configure environment
-cp .env.example .env
-# Edit .env with your settings
-
-# Run server
 python app.py
 ```
 
-Backend will be available at `http://localhost:5000`
-
-### Frontend Setup
+#### Frontend Setup (development)
 
 ```bash
 cd app
-
-# Install dependencies
 npm install
-
-# Configure environment
-cp .env.example .env.local
-# Edit .env.local with your API URL
-
-# Start development server
 npm run dev
 ```
 
-Frontend will be available at `http://localhost:5173`
+Frontend dev server: `http://localhost:5173`
 
 ## Project Structure
 
