@@ -259,6 +259,7 @@ osint-platform-backend/
 ├── config.py             # Configuration management
 ├── requirements.txt      # Python dependencies
 ├── .env.example         # Example environment configuration
+├── .env.example         # Example environment configuration
 ├── .gitignore           # Git ignore rules
 ├── README.md            # This file
 └── src/                 # Source modules
