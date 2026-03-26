@@ -44,17 +44,17 @@ chmod +x start_osint.sh
 
 ```text
 ╔══════════════════════════════════════════════════════════════╗
-║  Installer erledigt automatisch:                            ║
-║  • Python venv + pip install                                ║
-║  • npm install + Frontend Build                             ║
-║  • erzeugt 2 aktive Env-Dateien aus .env.example          ║
-║  • Start + Health-Check auf Port 15000                      ║
+║  The installer automatically:                               ║
+║  • Creates Python venv + runs pip install                   ║
+║  • Runs npm install + builds the frontend                   ║
+║  • Generates .env files from .env.example templates         ║
+║  • Starts the backend + health-check on port 15000          ║
 ╚══════════════════════════════════════════════════════════════╝
 ```
 
-Öffne danach: `http://localhost:15000`
+Open in your browser: `http://localhost:15000`
 
-Der Installer legt diese Dateien an: `osint-platform-backend/.env` und `app/.env.local`.
+The installer creates: `osint-platform-backend/.env` and `app/.env.local`.
 
 ### Manual Setup
 
@@ -70,6 +70,11 @@ cd osint-platform-backend
 python3 -m venv venv
 source venv/bin/activate
 cp .env.example .env
+```
+
+> **Important:** After copying `.env.example` to `.env`, open the new `.env` file and change `SECRET_KEY=change-me` to a strong, unique value. The backend relies on this key for security-sensitive operations.
+
+```bash
 pip install -r requirements.txt
 python app.py
 ```
@@ -129,7 +134,7 @@ Frontend dev server: `http://localhost:5173`
 ### Example Request
 
 ```bash
-curl -X POST http://localhost:5000/api/investigate \
+curl -X POST http://localhost:15000/api/investigate \
   -H "Content-Type: application/json" \
   -d '{
     "query": "+49 170 1234567",
@@ -148,7 +153,7 @@ FLASK_ENV=production
 DEBUG=False
 SECRET_KEY=your-secret-key
 HOST=0.0.0.0
-PORT=5000
+PORT=15000
 RATE_LIMIT=100 per hour
 DATABASE_URL=sqlite:///osint.db
 LOG_LEVEL=INFO
@@ -157,7 +162,7 @@ LOG_LEVEL=INFO
 ### Frontend (.env.local)
 
 ```env
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=http://localhost:15000/api
 ```
 
 ## Deployment

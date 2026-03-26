@@ -14,10 +14,10 @@ VENV_DIR="${BACKEND_DIR}/venv"
 BACKEND_PORT_DEFAULT="15000"
 BACKEND_PORT="${BACKEND_PORT_DEFAULT}"
 if [[ -f "${BACKEND_DIR}/.env" ]]; then
-  # Lese BACKEND_PORT aus der Backend-.env, falls gesetzt
-  BACKEND_PORT_FROM_ENV="$(grep -E '^BACKEND_PORT=' "${BACKEND_DIR}/.env" | tail -n1 | cut -d'=' -f2- | tr -d '\"' || true)"
-  if [[ -n "${BACKEND_PORT_FROM_ENV}" ]]; then
-    BACKEND_PORT="${BACKEND_PORT_FROM_ENV}"
+  # Read PORT from the backend .env (the env var actually used by the backend)
+  PORT_FROM_ENV="$(grep -E '^PORT=' "${BACKEND_DIR}/.env" | tail -n1 | cut -d'=' -f2- | tr -d '\"' || true)"
+  if [[ -n "${PORT_FROM_ENV}" ]]; then
+    BACKEND_PORT="${PORT_FROM_ENV}"
   fi
 fi
 BACKEND_PID=""
@@ -149,7 +149,12 @@ cp -r dist/* "${BACKEND_DIR}/static/"
 echo -e "${BLUE}[7/8] Starte Backend${NC}"
 cd "${BACKEND_DIR}"
 if command -v lsof >/dev/null 2>&1; then
-  lsof -ti:"${BACKEND_PORT}" | xargs -r kill -9 || true
+  PIDS="$(lsof -ti":${BACKEND_PORT}" -sTCP:LISTEN 2>/dev/null || true)"
+  if [[ -n "${PIDS}" ]]; then
+    kill -- ${PIDS} 2>/dev/null || true
+    sleep 2
+    kill -9 -- ${PIDS} 2>/dev/null || true
+  fi
 fi
 
 python app.py &
