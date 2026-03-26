@@ -145,7 +145,7 @@ FLASK_ENV=production
 DEBUG=False
 SECRET_KEY=your-secret-key
 HOST=0.0.0.0
-PORT=5000
+PORT=15000
 RATE_LIMIT=100 per hour
 DATABASE_URL=sqlite:///osint.db
 LOG_LEVEL=INFO
@@ -154,7 +154,7 @@ LOG_LEVEL=INFO
 ### Frontend (.env.local)
 
 ```env
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=http://localhost:15000/api
 ```
 
 ## Deployment
@@ -187,7 +187,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY . .
-EXPOSE 5000
+EXPOSE 15000
 CMD ["python", "app.py"]
 ```
 
