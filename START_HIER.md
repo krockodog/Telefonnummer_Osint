@@ -20,11 +20,16 @@
 ### Backend
 ```bash
 cd osint-platform-backend
+cp .env.example .env
+# SECRET_KEY setzen (Pflicht):
+sed -i.bak "s/^SECRET_KEY=.*/SECRET_KEY=$(python3 -c 'import secrets; print(secrets.token_hex(32))')/" .env && rm -f .env.bak
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 python app.py
 ```
+
+> **Hinweis:** Die `.env`-Datei setzt `PORT=15000`. Ohne diese Datei startet Flask auf dem Default-Port 5000.
 
 ### Frontend (nur Dev-Modus)
 ```bash
